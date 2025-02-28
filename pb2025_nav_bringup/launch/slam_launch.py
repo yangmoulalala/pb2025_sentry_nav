@@ -108,6 +108,37 @@ def generate_launch_description():
         ],
     )
 
+    start_pointcloud_to_laserscan_node = Node(
+        package="pointcloud_to_laserscan",
+        executable="pointcloud_to_laserscan_node",
+        name="pointcloud_to_laserscan",
+        output="screen",
+        respawn=use_respawn,
+        respawn_delay=2.0,
+        parameters=[configured_params],
+        arguments=["--ros-args", "--log-level", log_level],
+        remappings=[
+            ("cloud_in", "terrain_map"),
+            ("scan", "obstacle_scan"),
+        ],
+    )
+
+    start_sync_slam_toolbox_node = Node(
+        package="slam_toolbox",
+        executable="sync_slam_toolbox_node",
+        name="slam_toolbox",
+        output="screen",
+        respawn=use_respawn,
+        respawn_delay=2.0,
+        parameters=[configured_params],
+        arguments=["--ros-args", "--log-level", log_level],
+        remappings=[
+            ("/map", "map"),
+            ("/map_metadata", "map_metadata"),
+            ("/map_updates", "map_updates"),
+        ],
+    )
+
     start_point_lio_node = Node(
         package="point_lio",
         executable="pointlio_mapping",
@@ -162,6 +193,8 @@ def generate_launch_description():
     ld.add_action(start_map_saver_server_cmd)
     ld.add_action(start_lifecycle_manager_cmd)
 
+    ld.add_action(start_pointcloud_to_laserscan_node)
+    ld.add_action(start_sync_slam_toolbox_node)
     ld.add_action(start_point_lio_node)
     ld.add_action(start_static_transform_node)
 
