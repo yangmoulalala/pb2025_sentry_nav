@@ -8,11 +8,11 @@
 
 ![PolarBear Logo](https://raw.githubusercontent.com/SMBU-PolarBear-Robotics-Team/.github/main/.docs/image/polarbear_logo_text.png)
 
-[Bilibili: 谁说在家不能调车！？更适合新手宝宝的 RM 导航仿真](https://www.bilibili.com/video/BV12qcXeHETR)
+[BiliBili: 谁说在家不能调车！？更适合新手宝宝的 RM 导航仿真](https://www.bilibili.com/video/BV12qcXeHETR)
 
-| NAV2 | 动态避障 |
-|:-----------------:|:--------------:|
-|![rmuc_lidar_on_chassis_nav](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/rmuc_lidar_on_chassis_nav.77dkx6qbll.gif)|![rmuc_lidar_on_chassis_nav](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/dynamic_avoid.sz0ny2tct.gif)|
+https://github.com/user-attachments/assets/d9e778e0-fa43-40c2-96c2-e71eaf7737d4
+
+https://github.com/user-attachments/assets/ae4c19a0-4c73-46a0-95bd-909734da2a42
 
 ## 1. 项目介绍
 
@@ -53,6 +53,7 @@
     ├── pb2025_sentry_nav                   # 本仓库功能包描述文件
     ├── pb_omni_pid_pursuit_controller      # 路径跟踪控制器
     ├── point_lio                           # 里程计
+    ├── pointcloud_to_laserscan             # 将 terrain_map 转换为 laserScan 类型以表示障碍物（仅 SLAM 模式启动）
     ├── sensor_scan_generation              # 点云相关坐标变换
     ├── small_gicp_relocalization           # 重定位
     └── terrain_analysis                    # 分割出非地面障碍物点云
@@ -113,13 +114,24 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 
 #### 2.4.1 仿真
 
-单机器人 :
+单机器人：
+
+导航模式：
 
 ```bash
 ros2 launch pb2025_nav_bringup rm_sentry_simulation_launch.py \
 world:=rmuc_2025 \
 slam:=False
 ```
+
+建图模式：
+
+```bash
+ros2 launch pb2025_nav_bringup rm_sentry_simulation_launch.py \
+slam:=True
+```
+
+保存栅格地图：`ros2 run nav2_map_server map_saver_cli -f <YOUR_MAP_NAME>  --ros-args -r __ns:=/red_standard_robot1`
 
 多机器人 (实验性功能) :
 
@@ -135,6 +147,18 @@ blue_standard_robot1={x: 5.6, y: 1.4, yaw: 3.14}; \
 ```
 
 #### 2.4.2 实车
+
+建图模式：
+
+```bash
+ros2 launch pb2025_nav_bringup rm_sentry_reality_launch.py \
+slam:=True \
+use_robot_state_pub:=True
+```
+
+保存栅格地图：`ros2 run nav2_map_server map_saver_cli -f <YOUR_MAP_NAME>  --ros-args -r __ns:=/red_standard_robot1`
+
+导航模式：
 
 注意修改 `world` 参数为实际地图的名称
 

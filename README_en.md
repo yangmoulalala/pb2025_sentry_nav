@@ -8,11 +8,11 @@ Shenzhen MSU-BIT University PolarBear Robotics Team's Sentry Navigation Simulati
 
 ![PolarBear Logo](https://raw.githubusercontent.com/SMBU-PolarBear-Robotics-Team/.github/main/.docs/image/polarbear_logo_text.png)
 
-[Bilibili: RM navigation simulation for beginners](https://www.bilibili.com/video/BV12qcXeHETR)
+[BiliBili: RM navigation simulation for beginners](https://www.bilibili.com/video/BV12qcXeHETR)
 
-| NAV2 | Dynamic Obstacle Avoidance |
-|:-----------------:|:--------------:|
-|![rmuc_lidar_on_chassis_nav](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/rmuc_lidar_on_chassis_nav.77dkx6qbll.gif)|![rmuc_lidar_on_chassis_nav](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/dynamic_avoid.sz0ny2tct.gif)|
+https://github.com/user-attachments/assets/d9e778e0-fa43-40c2-96c2-e71eaf7737d4
+
+https://github.com/user-attachments/assets/ae4c19a0-4c73-46a0-95bd-909734da2a42
 
 ## 1. Overview
 
@@ -53,6 +53,7 @@ This project is based on the [NAV2 Navigation Framework](https://github.com/ros-
     ├── pb2025_sentry_nav                   # This repository's package description
     ├── pb_omni_pid_pursuit_controller      # Path tracking controller
     ├── point_lio                           # Odometry
+    ├── pointcloud_to_laserscan             # Convert terrain_map to LaserScan type to represent obstacles (only launched in SLAM mode)
     ├── sensor_scan_generation              # Point cloud related coordinate transformation
     ├── small_gicp_relocalization           # Localization
     └── terrain_analysis                    # Segmentation of non-ground obstacle point clouds
@@ -113,13 +114,26 @@ You can start the project with the following commands. Use the `Nav2 Goal` plugi
 
 #### 2.4.1 Simulation
 
-Single Robot :
+Single Robot:
+
+Navigation mode：
 
 ```bash
 ros2 launch pb2025_nav_bringup rm_sentry_simulation_launch.py \
 world:=rmuc_2025 \
 slam:=False
 ```
+
+SLAM mode：
+
+```bash
+ros2 launch pb2025_nav_bringup rm_sentry_simulation_launch.py \
+slam:=True
+```
+
+Save map：`ros2 run nav2_map_server map_saver_cli -f <YOUR_MAP_NAME>  --ros-args -r __ns:=/red_standard_robot1`
+
+Navigation mode:
 
 Multi Robots (Experimental) :
 
@@ -135,6 +149,18 @@ blue_standard_robot1={x: 5.6, y: 1.4, yaw: 3.14}; \
 ```
 
 #### 2.4.2 Physical Robot
+
+SLAM mode：
+
+```bash
+ros2 launch pb2025_nav_bringup rm_sentry_reality_launch.py \
+slam:=True \
+use_robot_state_pub:=True
+```
+
+Save map：`ros2 run nav2_map_server map_saver_cli -f <YOUR_MAP_NAME>  --ros-args -r __ns:=/red_standard_robot1`
+
+Navigation mode:
 
 Remember to change the `world` parameter to the actual map name.
 
