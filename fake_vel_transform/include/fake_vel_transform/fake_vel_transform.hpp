@@ -40,9 +40,13 @@ private:
   void syncCallback(
     const nav_msgs::msg::Odometry::ConstSharedPtr & odom,
     const nav_msgs::msg::Path::ConstSharedPtr & local_plan);
+  void odometryCallback(const nav_msgs::msg::Odometry::ConstSharedPtr & msg);
+  void localPlanCallback(const nav_msgs::msg::Path::ConstSharedPtr & msg);
   void cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg);
   void cmdSpinCallback(example_interfaces::msg::Float32::SharedPtr msg);
   void publishTransform();
+  geometry_msgs::msg::Twist transformVelocity(
+    const geometry_msgs::msg::Twist::SharedPtr & twist, float yaw_diff);
 
   rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_sub_;
   rclcpp::Subscription<example_interfaces::msg::Float32>::SharedPtr cmd_spin_sub_;
@@ -71,6 +75,7 @@ private:
   std::mutex cmd_vel_mutex_;
   geometry_msgs::msg::Twist::SharedPtr latest_cmd_vel_;
   double current_robot_base_angle_;
+  rclcpp::Time last_controller_activate_time_;
 };
 
 }  // namespace fake_vel_transform
