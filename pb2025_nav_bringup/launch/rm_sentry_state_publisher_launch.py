@@ -24,7 +24,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import PushRosNamespace
+from launch_ros.actions import PushRosNamespace, SetRemap
 
 
 def generate_launch_description():
@@ -59,6 +59,8 @@ def generate_launch_description():
     bringup_cmd_group = GroupAction(
         [
             PushRosNamespace(namespace=namespace),
+            SetRemap("/tf", "tf"),
+            SetRemap("/tf_static", "tf_static"),
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(
@@ -68,6 +70,7 @@ def generate_launch_description():
                     )
                 ),
                 launch_arguments={
+                    "namespace": namespace,
                     "use_sim_time": use_sim_time,
                     "robot_name": robot_name,
                     "use_rviz": "False",
