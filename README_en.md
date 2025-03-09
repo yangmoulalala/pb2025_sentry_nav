@@ -119,7 +119,7 @@ Single Robot:
 Navigation mode：
 
 ```bash
-ros2 launch pb2025_nav_bringup rm_sentry_simulation_launch.py \
+ros2 launch pb2025_nav_bringup rm_navigation_simulation_launch.py \
 world:=rmuc_2025 \
 slam:=False
 ```
@@ -127,7 +127,7 @@ slam:=False
 SLAM mode：
 
 ```bash
-ros2 launch pb2025_nav_bringup rm_sentry_simulation_launch.py \
+ros2 launch pb2025_nav_bringup rm_navigation_simulation_launch.py \
 slam:=True
 ```
 
@@ -140,7 +140,7 @@ Multi Robots (Experimental) :
 The specified initial pose is currently invalid. TODO: Add transform and initialization for `map` -> `odom`.
 
 ```bash
-ros2 launch pb2025_nav_bringup rm_multi_sentry_simulation_launch.py \
+ros2 launch pb2025_nav_bringup rm_multi_navigation_simulation_launch.py \
 world:=rmul_2024 \
 robots:=" \
 red_standard_robot1={x: 0.0, y: 0.0, yaw: 0.0}; \
@@ -153,7 +153,7 @@ blue_standard_robot1={x: 5.6, y: 1.4, yaw: 3.14}; \
 SLAM mode：
 
 ```bash
-ros2 launch pb2025_nav_bringup rm_sentry_reality_launch.py \
+ros2 launch pb2025_nav_bringup rm_navigation_reality_launch.py \
 slam:=True \
 use_robot_state_pub:=True
 ```
@@ -165,7 +165,7 @@ Navigation mode:
 Remember to change the `world` parameter to the actual map name.
 
 ```bash
-ros2 launch pb2025_nav_bringup rm_sentry_reality_launch.py \
+ros2 launch pb2025_nav_bringup rm_navigation_reality_launch.py \
 world:=<YOUR_WORLD_NAME> \
 slam:=False \
 use_robot_state_pub:=True

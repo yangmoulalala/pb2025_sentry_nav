@@ -145,7 +145,7 @@ def generate_launch_description():
 
     start_robot_state_publisher_cmd = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(launch_dir, "rm_sentry_state_publisher_launch.py")
+            os.path.join(launch_dir, "robot_state_publisher_launch.py")
         ),
         # NOTE: This startup file is only used when the navigation module is standalone
         condition=IfCondition(use_robot_state_pub),

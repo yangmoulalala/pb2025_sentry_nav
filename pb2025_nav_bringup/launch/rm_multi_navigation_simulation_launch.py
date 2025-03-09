@@ -123,7 +123,7 @@ def generate_launch_description():
                 IncludeLaunchDescription(
                     PythonLaunchDescriptionSource(
                         os.path.join(
-                            bringup_dir, "launch", "rm_sentry_simulation_launch.py"
+                            bringup_dir, "launch", "rm_navigation_simulation_launch.py"
                         )
                     ),
                     launch_arguments={
