@@ -347,10 +347,17 @@ controller_server:
       use_rotate_to_heading_treshold: 0.1
       min_approach_linear_velocity: 0.5
       approach_velocity_scaling_dist: 1.0
-      min_translation_speed: -2.5
-      max_translation_speed: 2.5
-      min_rotation_speed: -3.0
-      max_rotation_speed: 3.0
+      v_linear_min: -2.5
+      v_linear_max: 2.5
+      v_angular_min: -3.0
+      v_angular_max: 3.0
+      curvature_min: 0.4                                # 低曲率阈值，低于此值不减速。
+      curvature_max: 0.7                                # 高曲率阈值，高于此值大幅减速。
+      reduction_ratio_at_high_curvature: 0.5            # 高曲率时的速度降低比例。 0.5 (即减速 50%)
+      curvature_forward_dist: 0.7                       # 前向距离，用于曲率计算
+      curvature_backward_dist: 0.3                      # 后向距离，用于曲率计算
+      max_velocity_scaling_factor_rate: 0.9             # 速度缩放因子的最大变化率
+
 
 local_costmap:
   local_costmap:

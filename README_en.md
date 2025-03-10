@@ -205,7 +205,3 @@ Launch arguments are largely common to both simulation and physical robot. Howev
 By default, PS4 controller support is enabled. The key mapping can be found in the `teleop_twist_joy_node` section of [nav2_params.yaml](./pb2025_nav_bringup/config/simulation/nav2_params.yaml).
 
 ![teleop_twist_joy.gif](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/teleop_twist_joy.5j4aav3v3p.gif)
-
-## TODO
-
-- [ ] Optimize [pb_omni_pid_pursuit_controller](https://github.com/SMBU-PolarBear-Robotics-Team/pb_omni_pid_pursuit_controller) by adding speed limit handling for high curvature paths.
