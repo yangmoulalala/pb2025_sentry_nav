@@ -24,7 +24,7 @@ This project is based on the [NAV2 Navigation Framework](https://github.com/ros-
 
     The Livox mid360 is mounted at an incline on the chassis and uses the [point_lio](https://github.com/SMBU-PolarBear-Robotics-Team/point_lio/tree/RM2025_SMBU_auto_sentry) as odometry, [small_gicp](https://github.com/SMBU-PolarBear-Robotics-Team/small_gicp_relocalization) for localization, and [loam_interface](./loam_interface/) will transform PointCloud from `lidar_odom` frame to `odom` frame. The [sensor_scan_generation](./sensor_scan_generation/) transform PointCloud from `odom` frame to `front_mid360` frame and publishes the transform `odom -> chassis`.
 
-    ![frames_2025_1_7](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/frames_2025_1_7.6wqt65dade.webp)
+    ![frames_2025_03_26](https://raw.githubusercontent.com/LihanChen2004/picx-images-hosting/master/frames_2025_03_26.67xmq3djvx.webp)
 
 - Path Planning：
 
