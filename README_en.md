@@ -61,7 +61,32 @@ This project is based on the [NAV2 Navigation Framework](https://github.com/ros-
 
 ## 2. Quick Start
 
-### 2.1 Setup Environment
+### 2.1 Option 1: Docker
+
+#### 2.1.1 Setup Environment
+
+- [Docker](https://docs.docker.com/engine/install/)
+
+- Allow Docker Container to access the host's X11 display
+
+    ```bash
+    xhost +local:docker
+    ```
+
+#### 2.1.2 Create Container
+
+```bash
+docker run -it --rm --name pb2025_sentry_nav \
+  --network host \
+  -e "DISPLAY=$DISPLAY" \
+  -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /dev:/dev \
+  ghcr.io/smbu-polarbear-robotics-team/pb2025_sentry_nav:1.3.0
+```
+
+### 2.2 Option 2: Build From Source
+
+#### 2.2.1 Setup Environment
 
 - Ubuntu 22.04
 - ROS: [Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debs.html)
@@ -78,7 +103,7 @@ This project is based on the [NAV2 Navigation Framework](https://github.com/ros-
     sudo make install
     ```
 
-### 2.2 Create Workspace
+#### 2.2.2 Create Workspace
 
 ```bash
 mkdir -p ~/ros_ws
@@ -95,7 +120,7 @@ Prior point clouds are used for point_lio and small_gicp. Due to large file size
 
 > Note: The performance of point_lio with prior_pcd in large scenes is not optimal, and it is more prone to drift than without prior point clouds. Debugging and optimization are ongoing.
 
-### 2.3 Build
+#### 2.2.3 Build
 
 ```bash
 rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y
@@ -108,11 +133,11 @@ colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
 > [!NOTE]
 > We highly recommend building your workspace using the symlink-install option since pb2025_sentry_nav extensively utilizes launch_file and YAML resources. This option installs symbolic links to those non-compiled source files meaning that you don't need to rebuild again and again when you're for example tweaking a parameter file. Instead, your changes take effect immediately and you just need to restart your application.
 
-### 2.4 Running
+### 2.3 Running
 
 You can start the project with the following commands. Use the `Nav2 Goal` plugin in RViz to publish goal pose.
 
-#### 2.4.1 Simulation
+#### 2.3.1 Simulation
 
 Single Robot:
 
@@ -148,7 +173,7 @@ blue_standard_robot1={x: 5.6, y: 1.4, yaw: 3.14}; \
 "
 ```
 
-#### 2.4.2 Physical Robot
+#### 2.3.2 Physical Robot
 
 SLAM mode：
 
@@ -171,7 +196,7 @@ slam:=False \
 use_robot_state_pub:=True
 ```
 
-### 2.5 Launch Arguments
+### 2.4 Launch Arguments
 
 Launch arguments are largely common to both simulation and physical robot. However, there is a group of arguments that apply only to hardware or only to the simulator. Below is a legend to the tables with all launch arguments.
 
@@ -200,7 +225,7 @@ Launch arguments are largely common to both simulation and physical robot. Howev
 > [!TIP]
 > For more details about this project and the deployment guide for the physical robot, please visit the [Wiki](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/wiki).
 
-### 3.2 Joy teleop
+### 2.5 Joy teleop
 
 By default, PS4 controller support is enabled. The key mapping can be found in the `teleop_twist_joy_node` section of [nav2_params.yaml](./pb2025_nav_bringup/config/simulation/nav2_params.yaml).
 
