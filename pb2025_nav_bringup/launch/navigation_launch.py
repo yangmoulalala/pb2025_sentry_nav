@@ -114,6 +114,28 @@ def generate_launch_description():
         "log_level", default_value="info", description="log level"
     )
 
+    start_terrain_analysis_cmd = Node(
+        package="terrain_analysis",
+        executable="terrainAnalysis",
+        name="terrain_analysis",
+        output="screen",
+        respawn=use_respawn,
+        respawn_delay=2.0,
+        arguments=["--ros-args", "--log-level", log_level],
+        parameters=[configured_params],
+    )
+
+    start_terrain_analysis_ext_cmd = Node(
+        package="terrain_analysis_ext",
+        executable="terrainAnalysisExt",
+        name="terrain_analysis_ext",
+        output="screen",
+        respawn=use_respawn,
+        respawn_delay=2.0,
+        arguments=["--ros-args", "--log-level", log_level],
+        parameters=[configured_params],
+    )
+
     load_nodes = GroupAction(
         condition=IfCondition(PythonExpression(["not ", use_composition])),
         actions=[
@@ -131,16 +153,6 @@ def generate_launch_description():
                 package="sensor_scan_generation",
                 executable="sensor_scan_generation_node",
                 name="sensor_scan_generation",
-                output="screen",
-                respawn=use_respawn,
-                respawn_delay=2.0,
-                parameters=[configured_params],
-                arguments=["--ros-args", "--log-level", log_level],
-            ),
-            Node(
-                package="terrain_analysis",
-                executable="terrain_analysis_node",
-                name="terrain_analysis",
                 output="screen",
                 respawn=use_respawn,
                 respawn_delay=2.0,
@@ -267,12 +279,6 @@ def generate_launch_description():
                 parameters=[configured_params],
             ),
             ComposableNode(
-                package="terrain_analysis",
-                plugin="terrain_analysis::TerrainAnalysisNode",
-                name="terrain_analysis",
-                parameters=[configured_params],
-            ),
-            ComposableNode(
                 package="fake_vel_transform",
                 plugin="fake_vel_transform::FakeVelTransform",
                 name="fake_vel_transform",
@@ -360,6 +366,8 @@ def generate_launch_description():
     ld.add_action(declare_use_respawn_cmd)
     ld.add_action(declare_log_level_cmd)
     # Add the actions to launch all of the navigation nodes
+    ld.add_action(start_terrain_analysis_cmd)
+    ld.add_action(start_terrain_analysis_ext_cmd)
     ld.add_action(load_nodes)
     ld.add_action(load_composable_nodes)
 

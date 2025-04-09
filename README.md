@@ -56,7 +56,8 @@ https://github.com/user-attachments/assets/ae4c19a0-4c73-46a0-95bd-909734da2a42
     ├── pointcloud_to_laserscan             # 将 terrain_map 转换为 laserScan 类型以表示障碍物（仅 SLAM 模式启动）
     ├── sensor_scan_generation              # 点云相关坐标变换
     ├── small_gicp_relocalization           # 重定位
-    └── terrain_analysis                    # 分割出非地面障碍物点云
+    ├── terrain_analysis                    # 距车体 4m 范围内地形分析，将障碍物离地高度写入 PointCloud intensity
+    └── terrain_analysis_ext                # 车体 4m 范围外地形分析，将障碍物离地高度写入 PointCloud intensity
     ```
 
 ## 2. Quick Start

@@ -56,7 +56,8 @@ This project is based on the [NAV2 Navigation Framework](https://github.com/ros-
     ├── pointcloud_to_laserscan             # Convert terrain_map to LaserScan type to represent obstacles (only launched in SLAM mode)
     ├── sensor_scan_generation              # Point cloud related coordinate transformation
     ├── small_gicp_relocalization           # Localization
-    └── terrain_analysis                    # Segmentation of non-ground obstacle point clouds
+    ├── terrain_analysis                    # Terrain analysis within a 4m range of the vehicle, writing obstacle height above ground into the PointCloud intensity field.
+    └── terrain_analysis_ext                # Terrain analysis beyond a 4m range of the vehicle, writing obstacle height above ground into the PointCloud intensity field.
     ```
 
 ## 2. Quick Start
