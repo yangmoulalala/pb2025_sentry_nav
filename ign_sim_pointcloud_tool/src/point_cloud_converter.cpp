@@ -36,7 +36,7 @@ PointCloudConverter::PointCloudConverter(const rclcpp::NodeOptions & options)
   ang_res_y_ = this->get_parameter("ang_res_y").as_double();
 
   pcd_sub_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-    pcd_topic_, rclcpp::SensorDataQoS(),
+    pcd_topic_, 10,
     std::bind(&PointCloudConverter::lidarHandle, this, std::placeholders::_1));
 
   pcd_pub_ = this->create_publisher<sensor_msgs::msg::PointCloud2>(
