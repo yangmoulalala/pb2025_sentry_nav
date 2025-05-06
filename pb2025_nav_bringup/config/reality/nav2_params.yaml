@@ -64,8 +64,8 @@ point_lio:
       plane_thr: 0.1                                    # 0.05, the threshold for plane criteria, the smaller, the flatter a plane
       match_s: 81.0
       ivox_grid_resolution: 0.5
-      gravity: [0.0, 0.0, -9.8]                         # gravity to be aligned
-      gravity_init: [0.0, 0.0, -9.8]                    # preknown gravity in the first IMU body frame, use when imu_en is False or start from a non-stationary state
+      gravity: [0.0, 0.5305473804473877, -0.8383715748786926]            # gravity to be aligned
+      gravity_init: [0.0, 0.5305473804473877, -0.8383715748786926]       # preknown gravity in the first IMU body frame, use when imu_en is False or start from a non-stationary state
       extrinsic_T: [ -0.011, -0.02329, 0.04412 ]
       extrinsic_R: [ 1.0, 0.0, 0.0,
                      0.0, 1.0, 0.0,
@@ -166,7 +166,7 @@ small_gicp_relocalization:
     use_sim_time: false
     num_threads: 4
     num_neighbors: 20
-    global_leaf_size: 0.15
+    global_leaf_size: 0.1
     registered_leaf_size: 0.05
     max_dist_sq: 3.0
     map_frame: "map"
@@ -417,6 +417,7 @@ local_costmap:
           # '<robot_namespace>' keyword shall be replaced with 'namespace' where user defined.
           # It doesn't need to start with '/'
           topic: <robot_namespace>/terrain_map
+          sensor_frame: front_mid360
           min_obstacle_height: 0.0
           max_obstacle_height: 2.0
           obstacle_max_range: 5.0
@@ -464,6 +465,7 @@ global_costmap:
           # '<robot_namespace>' keyword shall be replaced with 'namespace' where user defined.
           # It doesn't need to start with '/'
           topic: <robot_namespace>/terrain_map_ext
+          sensor_frame: front_mid360
           min_obstacle_height: 0.0
           max_obstacle_height: 2.0
           obstacle_max_range: 10.0
