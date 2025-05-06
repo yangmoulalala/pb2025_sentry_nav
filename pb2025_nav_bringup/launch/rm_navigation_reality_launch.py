@@ -49,7 +49,7 @@ def generate_launch_description():
     # Declare the launch arguments
     declare_namespace_cmd = DeclareLaunchArgument(
         "namespace",
-        default_value="red_standard_robot1",
+        default_value="",
         description="Top-level namespace",
     )
 
@@ -132,6 +132,8 @@ def generate_launch_description():
     declare_use_rviz_cmd = DeclareLaunchArgument(
         "use_rviz", default_value="True", description="Whether to start RVIZ"
     )
+
+    # Create our own temporary YAML files that include substitutions
 
     configured_params = ParameterFile(
         RewrittenYaml(
