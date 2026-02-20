@@ -1,7 +1,7 @@
 # pb2025_sentry_nav
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Build and Test](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/ci.yml/badge.svg)](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/ci.yml)
+[![Build and Test](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/build_and_test.yml/badge.svg)](https://github.com/SMBU-PolarBear-Robotics-Team/pb2025_sentry_nav/actions/workflows/build_and_test.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
 
 深圳北理莫斯科大学 北极熊战队 2025 赛季哨兵导航仿真/实车包
@@ -82,7 +82,7 @@ docker run -it --rm --name pb2025_sentry_nav \
   -e "DISPLAY=$DISPLAY" \
   -v /tmp/.X11-unix:/tmp/.X11-unix \
   -v /dev:/dev \
-  ghcr.io/smbu-polarbear-robotics-team/pb2025_sentry_nav:1.3.1
+  ghcr.io/smbu-polarbear-robotics-team/pb2025_sentry_nav:1.3.2
 ```
 
 ### 2.2 Option 2: Build From Source
