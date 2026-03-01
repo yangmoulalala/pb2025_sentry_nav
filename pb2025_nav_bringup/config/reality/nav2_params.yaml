@@ -64,8 +64,8 @@ point_lio:
       plane_thr: 0.1                                    # 0.05, the threshold for plane criteria, the smaller, the flatter a plane
       match_s: 81.0
       ivox_grid_resolution: 0.5
-      gravity: [0.014489024877548218, 0.7499160170555115, -0.6482300853729248]                         # gravity to be aligned
-      gravity_init: [0.014489024877548218, 0.7499160170555115, -0.6482300853729248]                    # preknown gravity in the first IMU body frame, use when imu_en is False or start from a non-stationary state
+      gravity: [-0.10, -0.6959, -0.7159]                         # gravity to be aligned
+      gravity_init: [-0.10, -0.6959, -0.7159]                    # preknown gravity in the first IMU body frame, use when imu_en is False or start from a non-stationary state
       extrinsic_T: [ -0.011, -0.02329, 0.04412 ]
       extrinsic_R: [ 1.0, 0.0, 0.0,
                      0.0, 1.0, 0.0,
@@ -123,11 +123,11 @@ terrain_analysis:
     noDataObstacle: False               # treat no data as obstacle
     noDataBlockSkipNum: 0
     minBlockPointNum: 10
-    vehicleHeight: 0.1                  # 小于车辆高度的点才会进行处理
+    vehicleHeight: 0.8                  # 小于车辆高度的点才会进行处理    yang
     voxelPointUpdateThre: 100
     voxelTimeUpdateThre: 1.0
     minRelZ: -1.0                       # min_rel_z 以及 max_rel_z 限制了有效点云点的Z值范围，用于对天花板和地板进行处理
-    maxRelZ: 0.5
+    maxRelZ: 0.8                        # yang
     disRatioZ: 0.2                      # Z 值的最大最小范围由这两个值决定，但是并不等于这两个值，是有一个比例关系的，距离机器人越远，限定范围就越大，这其中考虑了坡度
 
 terrain_analysis_ext:
