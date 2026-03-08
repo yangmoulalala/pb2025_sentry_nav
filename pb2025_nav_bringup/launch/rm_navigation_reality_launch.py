@@ -66,6 +66,7 @@ def generate_launch_description():
     )
 
     declare_map_yaml_cmd = DeclareLaunchArgument(
+
         "map",
         default_value=[
             TextSubstitution(text=os.path.join(bringup_dir, "map", "reality", "")),
