@@ -10,7 +10,6 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -p https://github.com/zsh-users/zsh-autosuggestions \
     -p https://github.com/zsh-users/zsh-syntax-highlighting && \
     chsh -s /bin/zsh
-CMD [ "/bin/zsh" ]
 
 # Install small_gicp
 RUN apt install -y libeigen3-dev libomp-dev && \
@@ -42,16 +41,38 @@ RUN rosdep install -r --from-paths src --ignore-src --rosdistro $ROS_DISTRO -y
 # build
 RUN . /opt/ros/$ROS_DISTRO/setup.sh && colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=release
 
-# setup .zshrc
-RUN echo 'export TERM=xterm-256color\n\
-source ~/ros_ws/install/setup.zsh\n\
-eval "$(register-python-argcomplete3 ros2)"\n\
-eval "$(register-python-argcomplete3 colcon)"\n'\
->> /root/.zshrc
 
 # source entrypoint setup
 RUN sed --in-place --expression \
       '$isource "/root/ros_ws/install/setup.bash"' \
       /ros_entrypoint.sh
 
+# Append ROS environment to .zshrc (append to existing zsh config)
+RUN echo '\n# ROS 2 Environment\n\
+source /opt/ros/humble/setup.zsh\n\
+source /root/ros_ws/install/setup.zsh\n\
+eval "$(register-python-argcomplete3 ros2)"\n\
+eval "$(register-python-argcomplete3 colcon)"' >> /root/.zshrc
+
+# Also setup .bashrc for compatibility
+RUN echo '\n# ROS 2 Environment\n\
+source /opt/ros/humble/setup.bash\n\
+source /root/ros_ws/install/setup.bash' >> /root/.bashrc
+
+# Create a startup script that properly sources the workspace and runs the node
+RUN echo '#!/bin/bash\n\
+cd /root/ros_ws\n\
+source /opt/ros/humble/setup.bash\n\
+source install/setup.bash\n\
+exec ros2 launch pb2025_nav_bringup rm_navigation_reality_launch.py slam:=True use_robot_state_pub:=True "$@"' > /root/start_nav.sh && \
+    chmod +x /root/start_nav.sh
+
+# Set zsh as default shell
+RUN usermod -s /bin/zsh root
+
 RUN rm -rf /var/lib/apt/lists/*
+
+# Use the standard ROS entrypoint and our custom startup script
+ENTRYPOINT ["/ros_entrypoint.sh"]
+CMD ["/root/start_nav.sh"]
+
