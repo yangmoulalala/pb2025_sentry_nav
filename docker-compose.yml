@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   potential-nav:
-    image: potential-nav:0.1
+    image: potential-nav:0.0
     container_name: potential-nav
     network_mode: host
     environment:
