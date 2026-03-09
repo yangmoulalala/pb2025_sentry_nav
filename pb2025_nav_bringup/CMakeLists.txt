@@ -41,7 +41,7 @@ ament_target_dependencies(target_navigation_node
 
 # 安装头文件
 install(DIRECTORY include/
-  DESTINATION include
+  DESTINATION include/${PROJECT_NAME}
 )
 
 # 安装可执行文件
