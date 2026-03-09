@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  potential-nav:
+    image: potential-nav:0.0
+    container_name: potential-nav
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /dev:/dev
+    stdin_open: true
+    tty: true
+    privileged: true
