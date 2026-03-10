@@ -64,6 +64,7 @@ RUN echo '#!/bin/bash\n\
 cd /root/ros_ws\n\
 source /opt/ros/humble/setup.bash\n\
 source install/setup.bash\n\
+colcon build --symlink-install\n\
 exec ros2 launch pb2025_nav_bringup rm_navigation_reality_launch.py slam:=True use_robot_state_pub:=True "$@"' > /root/start_nav.sh && \
     chmod +x /root/start_nav.sh
 

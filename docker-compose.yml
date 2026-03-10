@@ -9,6 +9,7 @@ services:
     environment:
       - DISPLAY=${DISPLAY}
       - ROS_DOMAIN_ID=0
+      - FASTDDS_BUILTIN_TRANSPORTS=UDPv4
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./src:/root/ros_ws/src/potential-nav/src
