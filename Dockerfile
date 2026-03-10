@@ -26,7 +26,7 @@ RUN apt install -y libeigen3-dev libomp-dev && \
 # create workspace
 RUN mkdir -p ~/ros_ws && \
     cd ~/ros_ws && \
-    git clone --recursive https://github.com/yangmoulalala/pb2025_sentry_nav.git src/pb2025_sentry_nav && \
+    git clone --recursive https://github.com/yangmoulalala/potential-nav.git src/potential-nav && \
     git clone https://github.com/yangmoulalala/sentry_robot_description.git src/sentry_robot_description && \
     git clone https://github.com/yangmoulalala/mavlink_ws.git src/mavlink_ws && \
     mv src/mavlink_ws/src/rm_interfaces src/rm_interfaces && \

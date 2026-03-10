@@ -11,5 +11,5 @@ services:
       - ROS_DOMAIN_ID=0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./src:/root/ros_ws/src
+      - ./src:/root/ros_ws/src/potential-nav/src
     stdin_open: true
