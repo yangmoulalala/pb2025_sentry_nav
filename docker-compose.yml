@@ -12,5 +12,6 @@ services:
       - FASTDDS_BUILTIN_TRANSPORTS=UDPv4
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./src:/root/ros_ws/src/potential-nav/src
+      - .:/root/ros_ws/src/potential-nav
     stdin_open: true
+    command: bash -c "chmod +x /root/ros_ws/src/potential-nav/start_nav.sh && /root/ros_ws/src/potential-nav/start_nav.sh"

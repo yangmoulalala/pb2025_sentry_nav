@@ -13,22 +13,6 @@ TargetNavigationNode::TargetNavigationNode(const rclcpp::NodeOptions &options)
   global_costmap_clear_client_ = this->create_client<nav2_msgs::srv::ClearEntireCostmap>(
       "/red_standard_robot1/global_costmap/clear_entirely");
   
-  // 等待服务可用
-  while (!local_costmap_clear_client_->wait_for_service(std::chrono::seconds(1))) {
-    if (!rclcpp::ok()) {
-      RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for local costmap clear service.");
-      return;
-    }
-    RCLCPP_INFO(this->get_logger(), "Waiting for local costmap clear service...");
-  }
-  
-  while (!global_costmap_clear_client_->wait_for_service(std::chrono::seconds(1))) {
-    if (!rclcpp::ok()) {
-      RCLCPP_ERROR(this->get_logger(), "Interrupted while waiting for global costmap clear service.");
-      return;
-    }
-    RCLCPP_INFO(this->get_logger(), "Waiting for global costmap clear service...");
-  }
   
   // 创建Action客户端
   navigate_to_pose_client_ = rclcpp_action::create_client<nav2_msgs::action::NavigateToPose>(
@@ -55,7 +39,7 @@ TargetNavigationNode::TargetNavigationNode(const rclcpp::NodeOptions &options)
   
   // 创建定时器，用于定期检查是否需要发送新的目标点
   timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(500),  // 500ms = 2Hz
+      std::chrono::milliseconds(5000),  // 500ms = 2Hz
       std::bind(&TargetNavigationNode::timerCallback, this));
   
   RCLCPP_INFO(this->get_logger(), "Target navigation node initialized");
