@@ -60,13 +60,7 @@ source /opt/ros/humble/setup.bash\n\
 source /root/ros_ws/install/setup.bash' >> /root/.bashrc
 
 # Create a startup script that properly sources the workspace and runs the node
-RUN echo '#!/bin/bash\n\
-cd /root/ros_ws\n\
-source /opt/ros/humble/setup.bash\n\
-source install/setup.bash\n\
-colcon build --symlink-install\n\
-exec ros2 launch pb2025_nav_bringup rm_navigation_reality_launch.py slam:=True use_robot_state_pub:=True "$@"' > /root/start_nav.sh && \
-    chmod +x /root/start_nav.sh
+RUN chmod +x /root/ros_ws/src/potential-nav/start_nav.sh
 
 # Set zsh as default shell
 RUN usermod -s /bin/zsh root
@@ -75,5 +69,5 @@ RUN rm -rf /var/lib/apt/lists/*
 
 # Use the standard ROS entrypoint and our custom startup script
 ENTRYPOINT ["/ros_entrypoint.sh"]
-CMD ["/root/start_nav.sh"]
+CMD ["/root/ros_ws/src/potential-nav/start_nav.sh"]
 
