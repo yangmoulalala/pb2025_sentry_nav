@@ -70,4 +70,3 @@ RUN rm -rf /var/lib/apt/lists/*
 # Use the standard ROS entrypoint and our custom startup script
 ENTRYPOINT ["/ros_entrypoint.sh"]
 CMD ["/root/ros_ws/src/potential-nav/start_nav.sh"]
-

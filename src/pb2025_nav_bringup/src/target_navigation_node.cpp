@@ -9,14 +9,14 @@ TargetNavigationNode::TargetNavigationNode(const rclcpp::NodeOptions &options)
   
   // 创建客户端用于清理代价地图
   local_costmap_clear_client_ = this->create_client<nav2_msgs::srv::ClearEntireCostmap>(
-      "/red_standard_robot1/local_costmap/clear_entirely");
+      "local_costmap/clear_entirely");
   global_costmap_clear_client_ = this->create_client<nav2_msgs::srv::ClearEntireCostmap>(
-      "/red_standard_robot1/global_costmap/clear_entirely");
+      "global_costmap/clear_entirely");
   
   
   // 创建Action客户端
   navigate_to_pose_client_ = rclcpp_action::create_client<nav2_msgs::action::NavigateToPose>(
-      this, "/red_standard_robot1/navigate_to_pose");
+      this, "navigate_to_pose");
   
   // 等待Action服务器可用
   if (!navigate_to_pose_client_->wait_for_action_server(std::chrono::seconds(10))) {
@@ -26,20 +26,20 @@ TargetNavigationNode::TargetNavigationNode(const rclcpp::NodeOptions &options)
   
   // 创建订阅者
   target_position_sub_ = this->create_subscription<geometry_msgs::msg::Point>(
-      "/red_standard_robot1/target_position", 10,
+      "target_position", 10,
       std::bind(&TargetNavigationNode::targetPositionCallback, this, std::placeholders::_1));
   
   referee_sub_ = this->create_subscription<rm_interfaces::msg::Referee>(
-      "/red_standard_robot1/referee", 10,
+      "/referee", 10,
       std::bind(&TargetNavigationNode::refereeCallback, this, std::placeholders::_1));
   
   odometry_sub_ = this->create_subscription<nav_msgs::msg::Odometry>(
-      "/red_standard_robot1/odometry", 10,
+      "odometry", 10,
       std::bind(&TargetNavigationNode::odometryCallback, this, std::placeholders::_1));
   
   // 创建定时器，用于定期检查是否需要发送新的目标点
   timer_ = this->create_wall_timer(
-      std::chrono::milliseconds(5000),  // 500ms = 2Hz
+      std::chrono::milliseconds(500),  // 500ms = 2Hz
       std::bind(&TargetNavigationNode::timerCallback, this));
   
   RCLCPP_INFO(this->get_logger(), "Target navigation node initialized");

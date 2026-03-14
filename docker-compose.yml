@@ -5,10 +5,11 @@ services:
     image: potential-nav:0.0
     container_name: potential-nav
     network_mode: host
+    restart: always
     ipc: host
     environment:
       - DISPLAY=${DISPLAY}
-      - ROS_DOMAIN_ID=0
+      - ROS_DOMAIN_ID=7 # 7:sentry 1:hero   3:infantry
       - FASTDDS_BUILTIN_TRANSPORTS=UDPv4
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
